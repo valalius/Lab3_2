@@ -3,19 +3,21 @@
 #include <math.h>
 #include <time.h>
 
-#define eps 0.0001
+//переробити код, щоб замість макро визначення 5 рядка відповідна
+//(half and chord) приймали додатковий параметр eps.
+//не використовувати глобальні змінні і макро визначення у коді!!!
 
 double f (double x);
-double half(double x1, double x2, int n_count, int N);
-double chord(double x1, double x2, int n_count, int N);
+double half(double x1, double x2, int n_count, int N, double eps);
+double chord(double x1, double x2, int n_count, int N, double eps);
 
 int main()
 {
     int N, method, n_count=0;
     double x1, x2;
+    double eps=0.0001;
     double result;
     clock_t time;
-    double total_t;
 
     printf(" Choose the preferable method:");
     printf("\n\t For interval halving press 1");
@@ -45,13 +47,13 @@ int main()
         time=clock();
         case 1:
         {
-            result = half(x1,x2, n_count, N);
+            result = half(x1,x2, n_count, N, eps);
         }
         break;
 
         case 2:
         {
-            result = chord(x1, x2, n_count, N);
+            result = chord(x1, x2, n_count, N, eps);
         }
         break;
 
@@ -62,7 +64,7 @@ int main()
     return 0;
 }
 
-double half(double x1, double x2, int n_count, int N)
+double half(double x1, double x2, int n_count, int N, double eps)
 {
     double xi;
     unsigned int choice, const_n;
@@ -114,7 +116,7 @@ double half(double x1, double x2, int n_count, int N)
     return xi;
 }
 
-double chord (double x1, double x2, int n_count, int N)
+double chord (double x1, double x2, int n_count, int N, double eps)
 {
     double xi, xl;
     unsigned int choice, const_n;
